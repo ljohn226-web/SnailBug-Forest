@@ -28,7 +28,7 @@ public class PlayerCam : MonoBehaviour
 
         //cuz unity is weird
         yRoto += mouseX;
-        xRoto += mouseY;
+        xRoto -= mouseY;
         xRoto = Mathf.Clamp(xRoto, -90F, 90F); //clamp so head cant look 360 degrees
 
         //rotate cam and player orientation
