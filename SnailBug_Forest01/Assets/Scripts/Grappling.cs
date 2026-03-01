@@ -7,6 +7,7 @@ public class Grappling : MonoBehaviour
     public Transform cam;
     public Transform lizardMouth;
     public LayerMask whatIsGrappleable;
+    public LineRenderer lr;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -33,6 +34,14 @@ public class Grappling : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(grapplingKey)) StartGrapple();
+
+        if(grapplingCdTimer > 0) grapplingCdTimer -= Time.deltaTime;
+    }
+
+    //late update is also called every frame, but after update runs
+    private void LateUpdate()
+    {
+        if (grappling) lr.SetPosition(0, lizardMouth.position);
     }
     //shoot tongue out
     private void StartGrapple()
@@ -46,8 +55,15 @@ public class Grappling : MonoBehaviour
         {
             grapplePoint = hit.point;
 
-            //Invoke(nameof(ExecuteGrapple) 
+            Invoke(nameof(ExecuteGrapple), grappleDelayTime);
         }
+        else
+        {
+            grapplePoint = cam.position + cam.forward * maxGrappleDistance;
+            Invoke(nameof(StopGrapple), grappleDelayTime);
+        }
+        lr.enabled = true;
+        lr.SetPosition(1, grapplePoint); 
     }
     //after a delay, pull the player towards the thing
     private void ExecuteGrapple()
@@ -57,6 +73,10 @@ public class Grappling : MonoBehaviour
     //stop and cooldown gets activated
     private void StopGrapple()
     {
+        grappling = false;
 
+        grapplingCdTimer = grapplingCd;
+
+        lr.enabled = false;
     }
 }
