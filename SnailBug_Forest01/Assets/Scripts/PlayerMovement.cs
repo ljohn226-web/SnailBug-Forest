@@ -42,9 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
         //drag 
         if (grounded && !activeGrapple)
-            rb.linearDamping = 0.2f;
+            rb.linearDamping = 1f;
+        else if (!grounded && !activeGrapple)
+            rb.linearDamping = 3f;
         else
-            rb.linearDamping = 0.0f;
+            rb.linearDamping = 0f;
 
         //if (freeze)
         //{
@@ -75,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orient.forward * vertInput + orient.right * horizInput;
 
         //add force
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        rb.AddForce(moveDirection.normalized * moveSpeed * 5f, ForceMode.Force);
     }
 
     private void Jump()
     {
-        rb.AddForce(Vector3.up * 7, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
         grounded = false;
     }
 

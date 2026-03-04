@@ -54,6 +54,8 @@ public class Grappling : MonoBehaviour
 
         pm.freeze = true;
 
+        GetComponent<AudioSource>().Play();
+
         RaycastHit hit;
         //raycast that starts from the cam, goes the max grapple distance, and checks if the terrain is grappleable
         if(Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable))

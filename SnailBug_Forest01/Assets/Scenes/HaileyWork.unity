@@ -1016,7 +1016,7 @@ MonoBehaviour:
   overshootYAxis: 2
   grapplingCd: 1
   grapplingCdTimer: 0
-  grapplingKey: 303
+  grapplingKey: 304
   grappling: 0
 --- !u!1 &1714709944
 GameObject:

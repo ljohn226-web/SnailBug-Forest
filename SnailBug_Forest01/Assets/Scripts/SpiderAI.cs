@@ -102,7 +102,7 @@ public class SpiderAI : MonoBehaviour
         speedMultiplier -= followSpeed * slowDownAmount;
 
         rb.linearVelocity = moveVelocity.normalized * speedMultiplier;
-        transform.rotation = Quaternion.LookRotation(moveVelocity.normalized);
+        transform.rotation = Quaternion.LookRotation(-moveVelocity.normalized);
     }
 
     private void CastingBehavior()
