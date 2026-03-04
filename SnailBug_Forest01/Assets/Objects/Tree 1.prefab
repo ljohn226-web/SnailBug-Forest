@@ -300,8 +300,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpSpecMap:
         m_Texture: {fileID: 2800000, guid: c363842f41342004697312f339285494, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlossMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -315,6 +323,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Cutoff: 0.3
+    - _Shininess: 0.078125
     - _SquashAmount: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -438,17 +447,17 @@ MonoBehaviour:
     rootSpread: 5
     groundOffset: 0
     rootMatrix:
-      e00: -0.7979493
-      e01: 0.10560209
-      e02: 0.5934013
+      e00: 0.53760487
+      e01: -0
+      e02: 0.8431969
       e03: 0
-      e10: 0.13119791
-      e11: 0.99135625
-      e12: -0.0000000037252907
+      e10: 0
+      e11: 1
+      e12: 0
       e13: 0
-      e20: -0.5882721
-      e21: 0.07785301
-      e22: -0.8049068
+      e20: -0.8431969
+      e21: 0
+      e22: 0.53760487
       e23: 0
       e30: 0
       e31: 0
@@ -3809,17 +3818,17 @@ MonoBehaviour:
     pitch: -0
     rotation: {x: 0, y: 0, z: 0, w: 1}
     matrix:
-      e00: -0.7979493
-      e01: 0.10560209
-      e02: 0.5934013
+      e00: 0.53760487
+      e01: -0
+      e02: 0.8431969
       e03: 0
-      e10: 0.13119791
-      e11: 0.99135625
-      e12: -0.0000000037252907
+      e10: 0
+      e11: 1
+      e12: 0
       e13: 0
-      e20: -0.5882721
-      e21: 0.07785301
-      e22: -0.8049068
+      e20: -0.8431969
+      e21: 0
+      e22: 0.53760487
       e23: 0
       e30: 0
       e31: 0

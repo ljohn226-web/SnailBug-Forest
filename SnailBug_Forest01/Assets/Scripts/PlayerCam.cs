@@ -16,7 +16,7 @@ public class PlayerCam : MonoBehaviour
     {
         //lock cursor to screen center to start and make invis
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
