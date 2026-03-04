@@ -12,8 +12,13 @@ EditorBuildSettings:
     path: Assets/Scenes/LilyWork.unity
     guid: 49dea77c1c1a4bb4fbc05ba3815d6552
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Save Cat Level.unity
     guid: 4ad0794cc3bf679448890f1715346d2d
+=======
+    path: Assets/Scenes/RulesScene.unity
+    guid: 1ca91d513c5f06e43be65b32a261f376
+>>>>>>> f45d06efa14b5df9f3ea757c6fd15af067cad65a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
