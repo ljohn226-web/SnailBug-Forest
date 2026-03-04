@@ -23,10 +23,5 @@ public class KittyFriend : MonoBehaviour
         }
             
     }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        
-    }
 }
 

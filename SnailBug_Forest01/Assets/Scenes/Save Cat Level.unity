@@ -937,7 +937,7 @@ Transform:
   m_GameObject: {fileID: 159358106}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -15.210289, y: 1.6039984, z: 20.5}
+  m_LocalPosition: {x: -21.1, y: 1.6039984, z: 62.7}
   m_LocalScale: {x: 0.61109, y: 0.61109, z: 0.61109}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2374,6 +2374,7 @@ MonoBehaviour:
     m_Bits: 8
   freeze: 0
   activeGrapple: 0
+  minSurviveFallTime: 8
 --- !u!54 &372469384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5393,6 +5394,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43ca2f4a948d614409fb170069f8704a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 755344661}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43ca2f4a948d614409fb170069f8704a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 755344663}
   m_SourcePrefab: {fileID: 100100000, guid: 43ca2f4a948d614409fb170069f8704a, type: 3}
 --- !u!1 &755344660 stripped
 GameObject:
@@ -5420,6 +5424,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.87634075, z: 1.8588853}
   m_Center: {x: 0, y: 0.43750992, z: 0.11608335}
+--- !u!114 &755344663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755344660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b145acd0fe09a4989b345d4754181c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KittyFriend
+  kittyTextUI: {fileID: 1389689299}
 --- !u!1 &784848274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5462057402761209744, guid: 442d436b8b457534683af303e3bdfed6, type: 3}
