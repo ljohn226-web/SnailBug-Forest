@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 498071289}
   m_Layer: 3
   m_Name: Floor_01
-  m_TagString: Ground
+  m_TagString: Deadly Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -887,6 +887,7 @@ MonoBehaviour:
     m_Bits: 8
   freeze: 0
   activeGrapple: 0
+  minSurviveFallTime: 2
 --- !u!54 &1514905594
 Rigidbody:
   m_ObjectHideFlags: 0
