@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +28,13 @@ public class PlayerMovement : MonoBehaviour
     public bool activeGrapple;
     private bool enableMovementOnNextTouch;
 
+    [Header("Fall Damage")]
+    public float minSurviveFallTime = 4f; // Min air time to survive a fall
+    //public float damagePerSecondInAir = 10f; // Damage per second of air time beyond the minimum
+    //need to add player health
+
+    private float airTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,10 +57,23 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.linearDamping = 0f;
 
-        //if (freeze)
-        //{
-        //    rb.linearVelocity = Vector3.zero;
-        //}
+
+        //fall damage
+
+        if (!grounded)
+        {
+            airTime += Time.deltaTime;
+        }
+        else
+        {
+            if (airTime > minSurviveFallTime)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Time.timeScale = 1f;
+            }
+            // Reset air time as the player is grounded
+            airTime = 0f;
+        }
     }
 
     //fixed so player movement is not frame dependant
