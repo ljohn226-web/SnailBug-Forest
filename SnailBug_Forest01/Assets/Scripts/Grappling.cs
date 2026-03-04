@@ -12,6 +12,7 @@ public class Grappling : MonoBehaviour
     [Header("Grappling")]
     public float maxGrappleDistance;
     public float grappleDelayTime;
+    public float overshootYAxis;
 
     private Vector3 grapplePoint;
 
@@ -22,6 +23,7 @@ public class Grappling : MonoBehaviour
     [Header("Input for Grapple")]
     public KeyCode grapplingKey = KeyCode.RightShift;
 
+    [SerializeField]
     private bool grappling;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,7 +49,10 @@ public class Grappling : MonoBehaviour
     private void StartGrapple()
     {
         if (grapplingCdTimer > 0) return;
+
         grappling = true;
+
+        pm.freeze = true;
 
         RaycastHit hit;
         //raycast that starts from the cam, goes the max grapple distance, and checks if the terrain is grappleable
@@ -68,15 +73,33 @@ public class Grappling : MonoBehaviour
     //after a delay, pull the player towards the thing
     private void ExecuteGrapple()
     {
+        
+        pm.freeze = false;
 
+        //find the lowest point
+        //calculating jump velocity doesn't find the lowest point for the player to move along (aka where the grappling line is)
+        Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+
+        float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
+        float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
+
+        if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
+
+        pm.JumpToPosition(grapplePoint, highestPointOnArc);
+
+        Invoke(nameof(StopGrapple), 1f);
     }
     //stop and cooldown gets activated
-    private void StopGrapple()
+    public void StopGrapple()
     {
+        Debug.Log("Stopped Grapple");
+        pm.freeze = false;
+
         grappling = false;
 
         grapplingCdTimer = grapplingCd;
 
         lr.enabled = false;
     }
+
 }
