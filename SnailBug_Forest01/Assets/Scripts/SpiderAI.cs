@@ -119,7 +119,7 @@ public class SpiderAI : MonoBehaviour
         yield return new WaitForSeconds(WaitBeforeCast);
         //Cast from player to wall
         Ray cameraRay = new Ray(cameraTransform.position, cameraTransform.forward);
-        RaycastHit hitInfo = new RaycastHit();
+        //RaycastHit hitInfo = new RaycastHit();
         //Physics.Raycast(cameraRay, hitInfo);
 
     }

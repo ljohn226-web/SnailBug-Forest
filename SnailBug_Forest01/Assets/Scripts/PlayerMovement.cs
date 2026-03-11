@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -30,22 +31,27 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Fall Damage")]
     public float minSurviveFallTime = 4f; // Min air time to survive a fall
-    //public float damagePerSecondInAir = 10f; // Damage per second of air time beyond the minimum
-    //need to add player health
-
+    public float damagePerSecondInAir = 10f; // Damage per second of air time beyond the minimum
+    public float playerHealth = 100;
     private float airTime;
+
+    [Header("Player Health UI")]
+    public Slider healthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        healthBar.maxValue = 100;
+        healthBar.value = 100;
 
     }
     void Update()
     {
+        healthBar.value = playerHealth;
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround); 
 
         MyInput();
 
@@ -68,8 +74,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (airTime > minSurviveFallTime)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                Time.timeScale = 1f;
+
+                float fallDamage = (airTime - minSurviveFallTime) * damagePerSecondInAir;
+                ApplyDamage(fallDamage);
+                Debug.Log("Took " + fallDamage + " damage from fall. Current health: " + playerHealth);
             }
             // Reset air time as the player is grounded
             airTime = 0f;
@@ -144,7 +152,17 @@ public class PlayerMovement : MonoBehaviour
         Invoke(nameof(ResetRestrictions), 3f);
         Debug.Log(":(");
     }
-
+    public void ApplyDamage(float damage)
+    {
+        playerHealth -= damage;
+        if (playerHealth <= 0)
+        {
+            Debug.Log("Player Died!");
+            //death
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1f;
+        }
+    }
     public void ResetRestrictions()
     {
         activeGrapple = false;
