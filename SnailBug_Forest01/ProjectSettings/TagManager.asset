@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Deadly Ground
+  - RiverBank
   layers:
   - Default
   - TransparentFX
