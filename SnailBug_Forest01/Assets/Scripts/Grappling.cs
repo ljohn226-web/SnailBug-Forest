@@ -6,7 +6,6 @@ public class Grappling : MonoBehaviour
     private PlayerMovement pm;
     public Transform cam;
     public Transform lizardMouth;
-    public LayerMask whatIsGrappleable;
     public LineRenderer lr;
 
     [Header("Grappling")]
@@ -58,7 +57,7 @@ public class Grappling : MonoBehaviour
 
         RaycastHit hit;
         //raycast that starts from the cam, goes the max grapple distance, and checks if the terrain is grappleable
-        if(Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable))
+        if(Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, pm.whatIsGround))
         {
             grapplePoint = hit.point;
 
