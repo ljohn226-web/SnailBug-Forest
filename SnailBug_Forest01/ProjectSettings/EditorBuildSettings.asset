@@ -11,5 +11,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Save Cat Level.unity
     guid: 4ad0794cc3bf679448890f1715346d2d
+  - enabled: 1
+    path: Assets/Scenes/StorySceneSaveCatToRiver.unity
+    guid: 60fcfb7aaf75625438f944cf6b785e72
+  - enabled: 1
+    path: Assets/Scenes/Intro Scene.unity
+    guid: 19e87ecae60853a40bdf791ad174cea7
+  - enabled: 1
+    path: Assets/Scenes/RulesScene.unity
+    guid: 1ca91d513c5f06e43be65b32a261f376
+  - enabled: 1
+    path: Assets/Scenes/SaveSpiderLevel.unity
+    guid: dd6f1ef022227e145a77f833c9d10b6a
+  - enabled: 1
+    path: Assets/Scenes/StorySceneSpiderToCat.unity
+    guid: 4e62e633a5ca6cb4bb6083ca611abb2b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KittyFriend : MonoBehaviour
 {
@@ -22,8 +25,14 @@ public class KittyFriend : MonoBehaviour
         {
             win = true;
             kittyTextUI.SetActive(true);
+            StartCoroutine(Delay(4f));
+            SceneManager.LoadScene("StorySceneSaveCatToRiver");
         }
             
+    }
+    IEnumerator Delay(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
     }
 }
 
