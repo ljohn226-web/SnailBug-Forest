@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Deadly Ground
   - RiverBank
+  - River
+  - BigBubble
+  - SmallBubble
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - UI
   - AvoidLayer
   - Grappleable
-  - 
+  - River
   - 
   - 
   - 

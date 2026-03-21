@@ -56,13 +56,6 @@ public class KittyAI : MonoBehaviour
                 playerTransform = GameObject.FindGameObjectWithTag("Player").transform; 
         }
 
-        if (collision.collider.CompareTag("RiverBank"))
-        {
-            inFishRange = true;
-            Debug.Log("Collided with riverbank");
-            RiverBehavior.StartCoroutineExternal(playerTransform);
-                
-        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -168,6 +161,7 @@ If notfish escapes
 
     public void StartFishing(Vector3 hitPoint)
     {
+           // RiverBehavior.StartCoroutineExternal(playerTransform);
         
     }
 
