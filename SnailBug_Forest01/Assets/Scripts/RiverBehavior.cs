@@ -86,8 +86,7 @@ public class RiverBehavior : MonoBehaviour
 
         if (bubble != null)
         {
-            activeBubbles.Remove(bubble);
-            Destroy(bubble);
+            RemoveBubble(bubble);
         }
     }
     public void StartCoroutineExternal(Vector3 hitPoint, Collider riverCollider)

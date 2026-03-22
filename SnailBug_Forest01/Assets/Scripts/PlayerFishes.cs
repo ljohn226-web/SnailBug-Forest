@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class Player : MonoBehaviour
 
 
     //Fishing Inventory/visuals
+    public int fishCount = 0;
+    public RawImage fish01;
+    public RawImage fish02;
+    public RawImage fish03;
+    public RawImage fish04;
+    public RawImage fish05;
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,6 +38,7 @@ public class Player : MonoBehaviour
             //if ray hit collider river, send start to BUBBLE SPAWN
             if (Physics.Raycast(ray, out hit))
             {
+                 Debug.Log("raycast");
                 if (hit.collider.CompareTag("River"))
                 {
                     Debug.Log("Hit river, begin bubble spawn");
@@ -97,6 +106,8 @@ public class Player : MonoBehaviour
     public void FishSuccess()
     {
         Debug.Log("Kitty caught a Fish!");
+        fishCount++;
+        FishyToggle();
         kitty.CatchFish(); //null right now FIXED
     }
 
@@ -104,5 +115,24 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Uh Oh! the fish got away!");
         kitty.MissFish(); //null right now FIXED
+    }
+
+    public void FishyToggle()
+    {
+        if (fishCount == 1 && fish01 != null)
+            fish01.gameObject.SetActive(true);
+        
+        if (fishCount == 2 && fish02 != null)
+            fish02.gameObject.SetActive(true);
+        
+        if (fishCount == 3 && fish03 != null)
+            fish03.gameObject.SetActive(true);
+        
+        if (fishCount == 4 && fish04 != null)
+             fish04.gameObject.SetActive(true);
+        
+        if(fishCount == 5 && fish05 != null)
+            fish05.gameObject.SetActive(true);
+
     }
 }
