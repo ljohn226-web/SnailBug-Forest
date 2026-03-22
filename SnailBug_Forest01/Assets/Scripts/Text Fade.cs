@@ -41,10 +41,41 @@ public class TextFade : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "StorySceneSaveCatToRiver")
         {
             textList.Clear();
-            textList.Add("CAT: Spider! It's good to see you!");
-            textList.Add("SPIDER: It's nice to see you too, Cat.");
+            textList.Add("CAT: Spider...?");
+            textList.Add("SPIDER: Are you alright, Cat?");
             textList.Add("SPIDER: What happened here?");
-
+            textList.Add("CAT: The humans have been cutting down all the trees!");
+            textList.Add("CAT: They have these big monsters that chop them down and pick up the logs.");
+            textList.Add("CAT: They were so loud, and I...");
+            textList.Add("LIZARD: You came running up that tree?");
+            textList.Add("CAT: Yeah.");
+            textList.Add("CAT: Wait, who are you?");
+            textList.Add("LIZARD: I'm Lizard. I'm friends with Beaver.");
+            textList.Add("SPIDER: Lizard helped me when I was trapped under a rock.");
+            textList.Add("CAT: Nice to meet you, Lizard. What brings you up here?");
+            textList.Add("LIZARD: Well, I was hoping you could help us, help Beaver.");
+            textList.Add("LIZARD: We need help finding Bear.");
+            textList.Add("LIZARD: She's the only one who can help Beaver rebuild.");
+            textList.Add("SPIDER: The humans fell a tree that destroyed Beaver's dam!");
+            textList.Add("CAT: That's certainly rough.");
+            textList.Add("CAT: I know where Bear went to hibernate, but...");
+            textList.Add("CAT: ...she isn't gonna be happy being woken up.");
+            textList.Add("LIZARD: Ah, well...");
+            textList.Add("SPIDER: Ah, but Cat, don't you fish?");
+            textList.Add("CAT: Second best, only beaten by Bear.");
+            textList.Add("SPIDER: Maybe we can give her a present! That's sure to make her happy.");
+            textList.Add("CAT: I don't know. I'm still pretty shaken up.");
+            textList.Add("SPIDER: Will...");
+            textList.Add("Spider makes a small ball of silk.");
+            textList.Add("SPIDER: ...this convince you?");
+            textList.Add("CAT: BALL! STRING! SILK! BALL!");
+            textList.Add("Cat playfully pounces onto it.");
+            textList.Add("SPIDER: Hehehe. Just as excited as when I met you.");
+            textList.Add("CAT: Why, you... fine, I'm in.");
+            textList.Add("LIZARD: Yay! Is there a river on the way?");
+            textList.Add("CAT: Yep. It's pretty rough, but with the right timing, fishing is a breeze.");
+            textList.Add("LIZARD: Lead the way!");
+            //nextSceneName = "Fishing Level";
         }
         if (SceneManager.GetActiveScene().name == "StorySceneSpiderToCat")
         {

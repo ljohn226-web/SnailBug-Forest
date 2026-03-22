@@ -26,15 +26,20 @@ public class SpiderAI : MonoBehaviour
     public SpiderStates currentState;
 
     private bool isCasting;
-
+    private bool castFinished;
 
     [Header("Web Platform Properties")]
     public float WaitBeforeCast;
     public float castDistanceFromPlayer;
+    public GameObject webPrefab;
+
 
     //References
     private Rigidbody rb;
     public Transform cameraTransform;
+    public LayerMask whatIsGround;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -62,6 +67,7 @@ public class SpiderAI : MonoBehaviour
                 break;
             case SpiderStates.casting:
                 CastingBehavior();
+                if (castFinished) currentState = SpiderStates.idle;
                 break;
             case SpiderStates.idle:
                 if ((playerTransform.position - transform.position).magnitude >= closenessToStartIdleing) currentState = SpiderStates.followOnGround;
@@ -107,20 +113,24 @@ public class SpiderAI : MonoBehaviour
 
     private void CastingBehavior()
     {
+        castFinished = false;
         if (!isCasting)
         {
             isCasting = true;
             StartCoroutine(CastWeb());
         }
+        isCasting = false;
     }
 
     IEnumerator CastWeb()
     {
         yield return new WaitForSeconds(WaitBeforeCast);
         //Cast from player to wall
-        Ray cameraRay = new Ray(cameraTransform.position, cameraTransform.forward);
-        //RaycastHit hitInfo = new RaycastHit();
-        //Physics.Raycast(cameraRay, hitInfo);
-
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 5f, whatIsGround))
+        {
+            Instantiate(webPrefab, hit.point, Quaternion.identity);
+        }
+        castFinished = true;
     }
 }
