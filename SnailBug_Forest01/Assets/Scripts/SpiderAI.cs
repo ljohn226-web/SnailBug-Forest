@@ -44,8 +44,16 @@ public class SpiderAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
         currentState = SpiderStates.followOnGround;
+    }
+
+    public void Start()
+    {
+        if (GameObject.FindGameObjectWithTag("TreeKitty").GetComponent<KittyFriend>().isCatSaved)
+        {
+            transform.position = new Vector3(168, 1, -108);
+            Debug.Log("Spider moved");
+        }
     }
 
     public void Update()

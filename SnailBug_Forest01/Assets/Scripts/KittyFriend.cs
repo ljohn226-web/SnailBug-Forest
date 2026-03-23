@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class KittyFriend : MonoBehaviour
 {
-    public GameObject kittyTextUI;
-    private bool win;
+    public bool isCatSaved;
+    public static KittyFriend instance;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,19 +17,29 @@ public class KittyFriend : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!win) kittyTextUI.SetActive(false);
-    }
 
+    }
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
-            win = true;
-            kittyTextUI.SetActive(true);
-            StartCoroutine(Delay(4f));
+            isCatSaved = true;
+            StartCoroutine(Delay(1f));
             SceneManager.LoadScene("StorySceneSaveCatToRiver");
         }
-            
+
     }
     IEnumerator Delay(float delayTime)
     {

@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         healthBar.maxValue = 100;
         healthBar.value = 100;
-
     }
     void Update()
     {
