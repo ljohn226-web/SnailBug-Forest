@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0))
+       
+        if (Input.GetMouseButtonDown(1))
         {
             //cast ray toward mousepos
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -52,10 +52,8 @@ public class Player : MonoBehaviour
                 {
                     Debug.Log("Hit big bubble!");
                     fishWasCaught = true;   
-                    FishSuccess();
-                    //get collider of hit object, and destroy hit object 
-                    Destroy(hit.collider.gameObject);
-                    
+                    FishSuccess(hit.collider.transform);
+                    //get collider of hit object, and destroy hit object                     
                 }
 
                 //if ray hits bubble collider, call fish chance functions
@@ -70,21 +68,16 @@ public class Player : MonoBehaviour
                     if (fishProbability > 0.8f)
                     {
                         fishWasCaught = true;
-                        FishSuccess();
+                        FishSuccess(hit.collider.transform);
                     }
                     else
                     {
                         fishWasCaught = false;
-                        FishFail();
+                        FishFail(hit.collider.transform);
                     }
                     //if number is less than .7, !fishWasCaught
                     //get collider of hit object, and destroy hit object 
                     GameObject bub = hit.collider.gameObject;
-
-                    river.RemoveBubble(bub);
-                    Destroy(bub);   
-                   
-
                 }
             }
 
@@ -103,18 +96,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void FishSuccess()
+    public void FishSuccess(Transform bubbleTransform)
     {
         Debug.Log("Kitty caught a Fish!");
         fishCount++;
         FishyToggle();
-        kitty.CatchFish(); //null right now FIXED
+        kitty.CatchFish(bubbleTransform); 
     }
 
-    public void FishFail()
+    public void FishFail(Transform bubbleTransform)
     {
         Debug.Log("Uh Oh! the fish got away!");
-        kitty.MissFish(); //null right now FIXED
+        kitty.MissFish(bubbleTransform);
     }
 
     public void FishyToggle()

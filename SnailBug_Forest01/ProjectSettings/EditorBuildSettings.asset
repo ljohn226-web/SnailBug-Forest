@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StorySceneSpiderToCat.unity
     guid: 4e62e633a5ca6cb4bb6083ca611abb2b
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 497737feb31cb1648a00d54c8e8b01b5
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

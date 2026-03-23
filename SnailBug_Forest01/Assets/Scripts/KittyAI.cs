@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class KittyAI : MonoBehaviour
 {
@@ -21,10 +22,10 @@ public class KittyAI : MonoBehaviour
     public float avoidObjectsBias;
     public float targetBias;
 
-    private Transform playerTransform;
+    private Transform targetTransform;
     public KittyStates currentState;
 
-    private bool isFishing;   //true when fishing
+    public bool isFishing;   //true when fishing
     private bool isInRiver;   //true when senses river collider
     private bool inFishRange = false; //becomes true when sense river bank collider
 
@@ -47,13 +48,21 @@ public class KittyAI : MonoBehaviour
     void Update()
     {
         CatAction();
+
     }
     private void OnCollisionEnter(Collision collision)
     {
         //if player hasString and collides with cat, current = follow
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && !isFishing)
         {
-                playerTransform = GameObject.FindGameObjectWithTag("Player").transform; 
+                targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            rb.useGravity = true;
+
+        }else if(isFishing && collision.transform == targetTransform)
+        {
+            isFishing = false;
+            avoidRadius = 1;
+            Destroy(targetTransform);
         }
 
     }
@@ -69,42 +78,50 @@ public class KittyAI : MonoBehaviour
     {
         //a switch case searches for your current state,
         //and triggers behavior function based on state
-        switch (currentState)
+        if (!isFishing)
         {
-            case KittyStates.trapped: 
-              //if player is equal to or out of idle dist, = follow
-              if(playerTransform != null)
-                {
-                    if ((playerTransform.position - transform.position).magnitude >= idleDistance)currentState = KittyStates.followOnGround;
-                    if ((playerTransform.position - transform.position).magnitude < idleDistance)currentState = KittyStates.idle;
-                }
+            switch (currentState)
+            {
+                case KittyStates.trapped:
+                    //if player is equal to or out of idle dist, = follow
+                    if (targetTransform != null)
+                    {
+                        if ((targetTransform.position - transform.position).magnitude >= idleDistance) currentState = KittyStates.followOnGround;
+                        if ((targetTransform.position - transform.position).magnitude < idleDistance) currentState = KittyStates.idle;
+                    }
 
-                TrappedInTree();
-                break; 
+                    TrappedInTree();
+                    break;
 
-            case KittyStates.followOnGround:
-              //if player not moving and player is in idle range, current = idle 
-                if ((playerTransform.position - transform.position).magnitude < idleDistance) currentState = KittyStates.idle;
-                if (inFishRange && fishCooldown <= 0 && Input.GetKeyDown(fishKey)) currentState = KittyStates.fish;
-                FollowingPlayer();
-                break; 
+                case KittyStates.followOnGround:
+                    //if player not moving and player is in idle range, current = idle 
+                    if ((targetTransform.position - transform.position).magnitude < idleDistance) currentState = KittyStates.idle;
+                    if (inFishRange && fishCooldown <= 0 && Input.GetKeyDown(fishKey)) currentState = KittyStates.fish;
+                    FollowingPlayer();
+                    break;
 
-            case KittyStates.fish:
-                //if fishing time is done, current = idle
-                if ((playerTransform.position - transform.position).magnitude >= idleDistance) currentState = KittyStates.followOnGround;
-                //if ((playerTransform.position - transform.position).magnitude < idleDistance) currentState = KittyStates.idle;
-                if (inFishRange && fishCooldown > 0 && inFishRange) currentState = KittyStates.idle;
-                Fish();
-                break;
+                case KittyStates.fish:
+                    //if fishing time is done, current = idle
+                    if ((targetTransform.position - transform.position).magnitude >= idleDistance) currentState = KittyStates.followOnGround;
+                    //if ((playerTransform.position - transform.position).magnitude < idleDistance) currentState = KittyStates.idle;
+                    if (inFishRange && fishCooldown > 0 && inFishRange) currentState = KittyStates.idle;
+                    Fish();
+                    break;
 
-            case KittyStates.idle:
-              //if player is in fish range AND not touching river
-              //AND fishCooldown = 0 AND press fishKey, current = fishing
-              //if player is moving AND is out of idle range, current = follow
-                if (inFishRange && fishCooldown  <= 0 && Input.GetKeyDown(fishKey)) currentState = KittyStates.fish;
-                if ((playerTransform.position - transform.position).magnitude >= idleDistance) currentState = KittyStates.followOnGround;
-                break;
+                case KittyStates.idle:
+                    //if player is in fish range AND not touching river
+                    //AND fishCooldown = 0 AND press fishKey, current = fishing
+                    //if player is moving AND is out of idle range, current = follow
+                    if (inFishRange && fishCooldown <= 0 && Input.GetKeyDown(fishKey)) currentState = KittyStates.fish;
+                    if ((targetTransform.position - transform.position).magnitude >= idleDistance) currentState = KittyStates.followOnGround;
+                    break;
+            }
         }
+        else
+        {
+            FollowingPlayer();
+        }
+        
     }
 
     /* FISHING LOGIC:
@@ -140,31 +157,38 @@ If notfish escapes
     }
     void FollowingPlayer()
     {
+        
+        if (targetTransform == null)
+        {
+            targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            isFishing = false;
+        }
+
         //avoid obstacles      
         Vector3 moveVelocity = GetAvoidVector() * avoidObjectsBias;
-        moveVelocity += (playerTransform.position - transform.position).normalized * targetBias;
+        moveVelocity += (targetTransform.position - transform.position).normalized * targetBias;
             
 
         //follow player at follow distance
-        Vector3 playerDirection = playerTransform.position - transform.position;
+        Vector3 playerDirection = targetTransform.position - transform.position;
         moveVelocity = moveVelocity.normalized;
         float speedMultiplier = followSpeed;
-
+       
         //make cat slow into idle
-        float slowDownAmount = Mathf.Clamp(Vector3.Dot(moveVelocity, playerDirection.normalized), 0f, 1f);
-        slowDownAmount *= 1 - Mathf.Clamp(playerDirection.magnitude, 0f, slowToIdleDist) / slowToIdleDist;
-        speedMultiplier -= followSpeed * slowDownAmount;
+
+        if (!isFishing)
+        {
+            float slowDownAmount = Mathf.Clamp(Vector3.Dot(moveVelocity, playerDirection.normalized), 0f, 1f);
+            slowDownAmount *= 1 - Mathf.Clamp(playerDirection.magnitude, 0f, slowToIdleDist) / slowToIdleDist;
+            speedMultiplier -= followSpeed * slowDownAmount;
+        }
+        
 
         rb.linearVelocity = moveVelocity.normalized * speedMultiplier;
-        transform.rotation = Quaternion.LookRotation(-moveVelocity.normalized);
+        transform.rotation = Quaternion.LookRotation(moveVelocity.normalized);
     }
 
-    public void StartFishing(Vector3 hitPoint)
-    {
-           // RiverBehavior.StartCoroutineExternal(playerTransform);
-        
-    }
-
+   
     void Fish()
     {
        //cat swipe at water bubbles
@@ -187,19 +211,33 @@ If notfish escapes
        //currentState = KittyStates.fish;
     }
 
-    public void CatchFish()
+    public void CatchFish(Transform target)
     {
         Debug.Log("Kitty caught a fish!");
-       // currentState = KittyStates.fish;
-
+        
+        // currentState = KittyStates.fish;
+        rb.useGravity = false;
+        isFishing = true;
+        avoidRadius = 0;
+        SetTarget(target);
         // play catch animation here
     
     }
 
-    public void MissFish()
+    public void MissFish(Transform target)
     {
         Debug.Log("Fish escaped!");
 
+        rb.useGravity = false;
+        isFishing = true;
+        SetTarget(target);
+        avoidRadius = 0;
         // play fail animation
+    }
+
+    public void SetTarget(Transform newTransform)
+    {
+        targetTransform = newTransform;
+        Debug.Log(newTransform.name);
     }
 }
