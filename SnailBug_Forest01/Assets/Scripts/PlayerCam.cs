@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCam : MonoBehaviour
 {
@@ -22,17 +23,25 @@ public class PlayerCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitiveX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitiveY;
+        if (SceneManager.GetActiveScene().name == "LoseScene")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else
+        {
+            //get mouse input
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitiveX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitiveY;
 
-        //cuz unity is weird
-        yRoto += mouseX;
-        xRoto -= mouseY;
-        xRoto = Mathf.Clamp(xRoto, -90F, 90F); //clamp so head cant look 360 degrees
+            //cuz unity is weird
+            yRoto += mouseX;
+            xRoto -= mouseY;
+            xRoto = Mathf.Clamp(xRoto, -90F, 90F); //clamp so head cant look 360 degrees
 
-        //rotate cam and player orientation
-        transform.rotation = Quaternion.Euler(xRoto, yRoto, 0); //on both axes
-        orientation.rotation = Quaternion.Euler(0, yRoto, 0); // on y axis only
+            //rotate cam and player orientation
+            transform.rotation = Quaternion.Euler(xRoto, yRoto, 0); //on both axes
+            orientation.rotation = Quaternion.Euler(0, yRoto, 0); // on y axis only
+        }
+            
     }
 }

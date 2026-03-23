@@ -13,6 +13,6 @@ public class winCave : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("WinScreen");
+        SceneManager.LoadScene("WinScene");
     }
 }
