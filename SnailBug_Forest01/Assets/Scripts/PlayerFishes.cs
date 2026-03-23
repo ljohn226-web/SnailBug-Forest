@@ -17,7 +17,9 @@ public class Player : MonoBehaviour
     public RawImage fish03;
     public RawImage fish04;
     public RawImage fish05;
-   
+
+    public AudioClip splash;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -98,10 +100,12 @@ public class Player : MonoBehaviour
 
     public void FishSuccess(Transform bubbleTransform)
     {
+        GetComponent<AudioSource>().clip = splash;
+        GetComponent<AudioSource>().Play();
         Debug.Log("Kitty caught a Fish!");
         fishCount++;
         FishyToggle();
-        kitty.CatchFish(bubbleTransform); 
+        kitty.CatchFish(bubbleTransform);
     }
 
     public void FishFail(Transform bubbleTransform)

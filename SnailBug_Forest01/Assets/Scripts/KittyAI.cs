@@ -44,10 +44,13 @@ public class KittyAI : MonoBehaviour
     //References
     private Rigidbody rb;
     public Transform cameraTransform;
+
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentState = KittyStates.trapped;
+        StartCoroutine(Meow());
     }
 
     // Update is called once per frame
@@ -259,5 +262,11 @@ If notfish escapes
     {
         targetTransform = newTransform;
         Debug.Log(newTransform.name);
+    }
+    IEnumerator Meow()
+    {
+        yield return new WaitForSeconds(Random.Range(7f, 15f));
+        GetComponent<AudioSource>().Play();
+        StartCoroutine(Meow());
     }
 }

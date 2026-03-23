@@ -25,6 +25,8 @@ public class Grappling : MonoBehaviour
     [SerializeField]
     private bool grappling;
 
+    public AudioClip blep;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +55,7 @@ public class Grappling : MonoBehaviour
 
         pm.freeze = true;
 
+        GetComponent<AudioSource>().clip = blep;
         GetComponent<AudioSource>().Play();
 
         RaycastHit hit;
