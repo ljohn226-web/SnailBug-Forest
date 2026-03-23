@@ -21,6 +21,7 @@ public class KittyFriend : MonoBehaviour
     }
     void Awake()
     {
+        isCatSaved = true;
         if (instance == null)
         {
             instance = this;
@@ -36,14 +37,9 @@ public class KittyFriend : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             isCatSaved = true;
-            StartCoroutine(Delay(1f));
             SceneManager.LoadScene("StorySceneSaveCatToRiver");
         }
 
-    }
-    IEnumerator Delay(float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
     }
 }
 

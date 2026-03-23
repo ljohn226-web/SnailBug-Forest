@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSpawn : MonoBehaviour
 {
@@ -7,8 +10,7 @@ public class PlayerSpawn : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("TreeKitty").GetComponent<KittyFriend>().isCatSaved)
         {
-            transform.position = new Vector3(165, 1, -108);
-            Debug.Log("Player moved");
+            StartCoroutine(TeleportPlayer());
         }
         Debug.Log("IsCatSaved is " + GameObject.FindGameObjectWithTag("TreeKitty").GetComponent<KittyFriend>().isCatSaved);
     }
@@ -17,5 +19,11 @@ public class PlayerSpawn : MonoBehaviour
     void Update()
     {
         
+    }
+    IEnumerator TeleportPlayer()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = new Vector3(170, 1, -108);
+        Debug.Log("Player moved: " + transform.position);
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - BigBubble
   - SmallBubble
   - TreeKitty
+  - Spider
   layers:
   - Default
   - TransparentFX

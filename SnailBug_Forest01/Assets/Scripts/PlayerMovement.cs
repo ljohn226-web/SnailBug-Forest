@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     {
  
         activeGrapple = true;
-
+ 
         velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
         
         //velocity is applied after 0.f seconds
