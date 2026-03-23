@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Player Died!");
             //death
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("LoseScene");
             Time.timeScale = 1f;
         }
     }

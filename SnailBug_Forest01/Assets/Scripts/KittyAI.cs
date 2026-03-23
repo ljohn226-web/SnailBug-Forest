@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -34,6 +35,11 @@ public class KittyAI : MonoBehaviour
     public RiverBehavior RiverBehavior;
     //public float fishTime;
 
+    [Header("TEXT")]
+    public TextFade textFade;
+    public TextMeshProUGUI fishingText;
+    public TextMeshProUGUI rulesText;
+
     public KeyCode fishKey = KeyCode.F;
     //References
     private Rigidbody rb;
@@ -52,6 +58,20 @@ public class KittyAI : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.CompareTag("Player"))
+        {
+            if (fishingText = null)
+            {
+                fishingText.gameObject.SetActive(true); 
+                textFade.FadeOut();
+                if (rulesText = null)
+                {
+                    rulesText.gameObject.SetActive(true);
+                    textFade.FadeOut();
+                }
+              
+            }
+        }
         //if player hasString and collides with cat, current = follow
         if (collision.collider.CompareTag("Player") && !isFishing)
         {
