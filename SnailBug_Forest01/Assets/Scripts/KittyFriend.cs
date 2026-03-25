@@ -21,7 +21,6 @@ public class KittyFriend : MonoBehaviour
     }
     void Awake()
     {
-        isCatSaved = true;
         if (instance == null)
         {
             instance = this;
